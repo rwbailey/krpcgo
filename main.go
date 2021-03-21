@@ -35,11 +35,12 @@ func main() {
 
 	_, _ = conn.Write(data)
 
-	resp := make([]byte, 4096)
-	length, err := conn.Read(data)
+	resp := make([]byte, 1024)
+	length, err := conn.Read(resp)
 	if err != nil {
 		log.Fatal("e3 ", err)
 	}
+	fmt.Println(resp)
 
 	messagePb := kpb.ConnectionResponse{}
 	err = proto.Unmarshal(resp[:length], &messagePb)
