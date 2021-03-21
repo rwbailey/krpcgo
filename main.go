@@ -44,7 +44,7 @@ func main() {
 	if err != nil {
 		log.Fatal("e4 ", err)
 	}
-	fmt.Println(resp)
+	// fmt.Println(resp)
 
 	messagePb := kpb.ConnectionResponse{}
 	err = proto.Unmarshal(resp[1:length], &messagePb)
