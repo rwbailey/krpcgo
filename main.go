@@ -33,19 +33,23 @@ func main() {
 
 	data = append(buf, data...)
 
-	_, _ = conn.Write(data)
+	n, err := conn.Write(data)
+	log.Printf("Wrote %v bytes.", n)
+	if err != nil {
+		log.Fatal("e3 ", err)
+	}
 
 	resp := make([]byte, 1024)
 	length, err := conn.Read(resp)
 	if err != nil {
-		log.Fatal("e3 ", err)
+		log.Fatal("e4 ", err)
 	}
 	fmt.Println(resp)
 
 	messagePb := kpb.ConnectionResponse{}
-	err = proto.Unmarshal(resp[:length], &messagePb)
+	err = proto.Unmarshal(resp[1:length], &messagePb)
 	if err != nil {
-		log.Fatal("e4 ", err)
+		log.Fatal("e5 ", err)
 	}
 
 	fmt.Println(messagePb.GetMessage())
